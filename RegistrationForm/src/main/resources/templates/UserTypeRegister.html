@@ -1,0 +1,53 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-primary text-center text-white">
+                <h2>Roles Submission Form</h2>
+                <h6>Please enter your roles</h6>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/userType/save}" method="POST" id="userTypeForm">
+                    <!--row#1-->
+                    <div class="row">
+                        <div class="col-2">
+                            <label for="userRoles"> Enter your user Roles</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" name="userRoles" id="userRoles" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <span id="userRolesError"></span>
+                        </div>
+                    </div><br><br>
+
+           
+                    <button type="submit" class="btn btn-success ">Submit <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+                </form>
+
+            </div>
+            <div th:if="${message!=null}" class="card-footer bg-white text-info">
+                <span th:text="${message}"></span>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/myjs/userType_validate.js}">
+
+    </script>
+
+</body>
+</html>
