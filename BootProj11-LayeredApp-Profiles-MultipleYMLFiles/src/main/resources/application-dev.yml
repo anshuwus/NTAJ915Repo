@@ -1,0 +1,13 @@
+#JDBC properties
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    dbcp2:
+      max-conn-lifetime-millis: 100000
+      max-total: 100
+      initial-size: 10
+    url: jdbc:mysql:///NTSPBMS616DB
+    type: org.apache.commons.dbcp2.BasicDataSource
+    password: root

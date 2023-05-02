@@ -1,0 +1,14 @@
+#application-uat.properties profile
+
+#JDBC properties
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: system
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    oracleucp:
+      max-pool-size: '100'
+      time-to-live-connection-timeout: '1000000'
+      min-pool-size: '10'
+    type: oracle.ucp.jdbc.PoolDataSourceImpl
+    password: manager
