@@ -176,4 +176,17 @@ public class EmployeeOperationsController {
 		return empService.fetchAllDeptno();
 	}
 
+	
+	//Pagination
+	@GetMapping("/paginationReport")
+	public String showEmployeeReport(@PageableDefault(page = 0,size=5,sort = "job",direction =Sort.Direction.ASC )Pageable pageable,
+			                           Map<String,Object> map) {
+		//use service
+		Page<Employee> page=empService.getEmployeeReportDataByPage(pageable);
+		//put result in model attribute
+		map.put("empData", page);
+		
+		//return LVN
+		return "show_employeePagination_report_";
+	}
 }

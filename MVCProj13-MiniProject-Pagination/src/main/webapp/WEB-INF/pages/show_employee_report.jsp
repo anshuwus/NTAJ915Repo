@@ -7,7 +7,7 @@
    <c:when test="${!empty empsList}">
       <h1 style="color:red;text-align:center">Employees Report</h1>
       <table border="1" align="center" class="table table-striped table-hover">
-         <tr style="color:red">
+         <tr class="table-danger">
              <th>empno</th>
              <th>ename</th>
              <th>Job</th>
@@ -16,7 +16,7 @@
              <th>Operations</th>
          </tr>
          <c:forEach var="emp" items="${empsList}">
-             <tr style="color:blue">
+             <tr class="table-success">
                 <td>${emp.empno }</td>
                 <td>${emp.ename }</td>
                 <td>${emp.job }</td>
@@ -36,9 +36,8 @@
         <h1 style="color:red;text-align:center">Employees Not Found</h1>
    </c:otherwise>
 </c:choose>
-<br><hr><bR><Br>
-
 </div>
+<br><hr><bR><Br>
 <center>
     
     <div><a href="add"><img src="images/add.jpg" width="50px" height="60px"/>Add Employee</a></div>
