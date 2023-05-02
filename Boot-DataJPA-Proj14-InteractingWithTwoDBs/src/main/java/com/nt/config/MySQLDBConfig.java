@@ -1,0 +1,61 @@
+package com.nt.config;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import jakarta.persistence.EntityManagerFactory;
+
+
+
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.nt.repository.promos",
+                                            entityManagerFactoryRef = "mysqlEMF",
+                                            transactionManagerRef = "mysqlTxMgmr")
+public class MySQLDBConfig {
+	
+	
+	@Bean(name="mysqlDS")
+	@ConfigurationProperties(prefix ="mysql.ds")
+	public   DataSource createMySQLDs() {
+		return   DataSourceBuilder.create().build();
+	}
+	
+	
+	@Bean("mysqlEMF")
+	public  LocalContainerEntityManagerFactoryBean  createLCEMFB(EntityManagerFactoryBuilder builder) {
+		 //keep  JPA-Hibernate properties  in Map collection
+		Map<String,String> map=new HashMap();
+		map.put("hibernate.dialect","org.hibernate.dialect.MySQL8Dialect");
+		map.put("hibernate.hbm2ddl.auto","update");
+		map.put("hibernate.show_sql","true");
+		map.put("hibernate.format_sql","true");
+		
+		// create  LocalContainerEntityManagerFactoryBean class object using  EntityManagerFactoryBuilder object
+		return  builder.dataSource(createMySQLDs())
+				                .packages("com.nt.entity.promos")  //package for  entity classes
+				                .properties(map)
+				                .build();
+	}
+	
+	
+	@Bean(name="mysqlTxMgmr")
+	public   JpaTransactionManager   createMySQLTxMgmr(@Qualifier("mysqlEMF") EntityManagerFactory factory) {
+		return  new  JpaTransactionManager(factory);
+	}
+
+}
